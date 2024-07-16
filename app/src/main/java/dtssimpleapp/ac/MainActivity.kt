@@ -220,12 +220,16 @@ class MainActivity : ComponentActivity() {
                     onButtonClick = { button ->
                         when (button) {
                             "=" -> {
-                                try {
-                                    result = calculateResult(input)
-                                    input = ""
-                                } catch (e: Exception) {
-                                    result = "Error"
-                                    input = ""
+                                if (input.isEmpty()) {
+                                    showToast("Masukkan nilai")
+                                } else {
+                                    try {
+                                        result = calculateResult(input)
+                                        input = ""
+                                    } catch (e: Exception) {
+                                        result = "Error"
+                                        input = ""
+                                    }
                                 }
                             }
                             "C" -> {
@@ -245,8 +249,8 @@ class MainActivity : ComponentActivity() {
         val buttons = listOf(
             "1", "2", "3", "+",
             "4", "5", "6", "-",
-            "7", "8", "9", "*",
-            "0", ".", "C", "/",
+            "7", "8", "9", "x",
+            "0", ".", "C", ":",
             "%", "="
         )
 
@@ -349,7 +353,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun Greeting(name: String, modifier: Modifier = Modifier) {
         Text(
-            text = "$name",
+            text = name,
             modifier = modifier
         )
     }
